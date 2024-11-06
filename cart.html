@@ -104,7 +104,7 @@
 								<button class="btn btn-black btn-sm btn-block" onclick="loadCart()">Update Cart</button>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-outline-black btn-sm btn-block" onclick="window.location.href='shop.html'">Continue Shopping</button>
+								<button class="btn btn-outline-black btn-sm btn-block" id="continueShoppingButton">Continue Shopping</button>
 							</div>
 						</div>
 					</div>
@@ -254,6 +254,11 @@
 		<script>
 			const urlParams = new URLSearchParams(window.location.search);
 			const userId = urlParams.get('userId'); // Assuming userId is passed as a parameter
+
+			// Set up the "Continue Shopping" button
+			document.getElementById('continueShoppingButton').onclick = function() {
+				window.location.href = `shop.html?userId=${userId}`;
+			};
 
 			document.getElementById('checkoutButton').onclick = function() {
 				window.location.href = `checkout.html?userId=${userId}`;

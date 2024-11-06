@@ -80,15 +80,15 @@
 					</div>
 					<nav aria-label="breadcrumb" role="navigation">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+							<li class="breadcrumb-item">Home</li>
 							<li class="breadcrumb-item active" aria-current="page">Profile</li>
 						</ol>
-					</nav>
+					</nav>					
 				</div>
 				<div>
 					<!-- tombol dashboard muncul jika yang login adalah admin -->
 					<a href="dashboard.html" class="btn btn-primary btn-sm ">Dashboard</a>
-					<a href="login.html" class="btn btn-sm">Log Out</a>
+					<button id="logoutButton" class="btn btn-sm">Log Out</button>
 				</div>
 			</div>
 		</div>
@@ -309,7 +309,65 @@
 				DeskApp - Bootstrap 4 Admin Template By <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>
 			</div>
 	</div>
+	
+	<script src="auth.js"></script>
 	<script>
+		document.addEventListener("DOMContentLoaded", async () => {
+			// Check if the user is authenticated
+			const token = localStorage.getItem("authToken");
+			
+			if (!token) {
+			  console.log("No token found. Redirecting to login page...");
+			  window.location.href = "login.html";
+			  return;
+			}
+		  
+			try {
+			  // Validate the token with the backend
+			  const response = await fetch("public/validate_token.php", {
+				method: "POST",
+				headers: {
+				  "Content-Type": "application/json",
+				  Authorization: `Bearer ${token}`,
+				},
+			  });
+		  
+			  const data = await response.json();
+		  
+			  if (!data.success) {
+				console.log("Invalid token. Redirecting to login page...");
+				localStorage.removeItem("authToken"); // Remove invalid token
+				window.location.href = "login.html";
+				return;
+			  }
+		  
+			  console.log("User is authenticated.");
+			} catch (error) {
+			  console.error("Error validating token:", error);
+			  localStorage.removeItem("authToken");
+			  window.location.href = "login.html";
+			}
+		  
+			// Logout function for all users
+			function logout() {
+			  localStorage.removeItem("authToken"); // Remove the token from localStorage
+			  console.log("User logged out. Redirecting to login page...");
+			  window.location.href = "login.html"; // Redirect to login
+			}
+		  
+			// Attach the logout functionality to the logout button
+			const logoutButton = document.getElementById("logoutButton");
+			if (logoutButton) {
+				//alert("test");
+			  logoutButton.addEventListener("click", logout);
+			}
+		  });
+		  
+  
+	</script>
+	<script>
+			  
+
 		 // Retrieve the userId from the current page's URL
 		 const urlParams = new URLSearchParams(window.location.search);
 		 const userId = urlParams.get('userId'); // Assuming userId is passed as a parameter
@@ -327,6 +385,7 @@
 	 
 			 // Update the Cart link
 			 document.querySelector('a.nav-link[href="cart.html"]').href = `cart.html?userId=${userId}`;
+			 
 		 }
 		// Function to fetch user data based on userId
 function fetchUserData(userId) {
@@ -337,7 +396,7 @@ function fetchUserData(userId) {
             if (data.error) {
                 // Handle error if user is not found or another issue occurs
                 console.error(data.error);
-                alert(data.error);
+                //alert(data.error);
             } else {
                 // Display or use the user data
                 console.log("User Data:", data);
@@ -351,7 +410,7 @@ function fetchUserData(userId) {
         })
         .catch(error => {
             console.error("An error occurred while fetching user data:", error);
-            alert("An error occurred. Please try again.");
+            //alert("An error occurred. Please try again.");
         });
 }
 
@@ -364,7 +423,7 @@ fetchUserData(userId);
 				.then(data => {
 					if (data.error) {
 						console.error(data.error);
-						alert(data.error);
+						//alert(data.error);
 						return;
 					}
 		
@@ -413,7 +472,7 @@ fetchUserData(userId);
 				})
 				.catch(error => {
 					console.error("An error occurred while fetching purchase history:", error);
-					alert("An error occurred. Please try again.");
+					//alert("An error occurred. Please try again.");
 				});
 		}
 		
@@ -427,7 +486,7 @@ fetchUserData(userId);
 				.then(data => {
 					if (data.error) {
 						console.error(data.error);
-						alert(data.error);
+						//alert(data.error);
 						return;
 					}
 		
@@ -496,7 +555,7 @@ fetchUserData(userId);
 		
 		// Function to mark order as complete
 		function markOrderComplete(orderId) {
-			alert("Pesanan selesai. Terima kasih!");
+			//alert("Pesanan selesai. Terima kasih!");
 			fetch("public/update_order_status.php", {
 				method: "POST",
 				headers: {
@@ -507,11 +566,11 @@ fetchUserData(userId);
 				.then(response => response.json())
 				.then(data => {
 					if (data.success) {
-						alert("Pesanan selesai dan dipindahkan ke riwayat.");
+						//alert("Pesanan selesai dan dipindahkan ke riwayat.");
 						document.getElementById("order-status").textContent = "completed";
 						document.getElementById("complete-order-button").style.display = "none"; // Hide the button
 					} else {
-						alert("Failed to complete order: " + (data.error || "Unknown error"));
+						//alert("Failed to complete order: " + (data.error || "Unknown error"));
 					}
 				})
 				.catch(error => console.error("Error completing order:", error));

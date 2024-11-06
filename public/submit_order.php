@@ -71,7 +71,7 @@ try {
         ['$set' => ['products' => []]] // Set products to an empty array
     );
 
-    echo json_encode(['success' => true]);
+    echo json_encode(['success' => true,'userId' => $userId]);
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'error' => 'Failed to place order: ' . $e->getMessage()]);
 }

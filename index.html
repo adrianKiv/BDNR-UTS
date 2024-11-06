@@ -636,64 +636,110 @@
     <!-- End Footer Section -->
 
     <script>
-		// Function to fetch products from the API
-		async function fetchProducts() {
-		  try {
-			const response = await fetch("public/products_limit.php"); // Call the API
-			const products = await response.json();
-			displayAllProducts(products); // Call function to display all products
-		  } catch (error) {
-			console.error("Failed to fetch product data:", error);
-		  }
-		}
-	  
-		// Function to display all products
-		function displayAllProducts(products) {
-		  const container = document.getElementById("productContainer");
-		  container.innerHTML = ""; // Clear container
-	  
-		  // Retrieve the user ID from the URL
-		  const urlParams = new URLSearchParams(window.location.search);
-		  const userId = urlParams.get("userId");
-	  
-		  if (userId) {
-			// Add userId to the Home link
-			document.querySelector('a.nav-link[href="index.html"]').href = `index.html?userId=${userId}`;
-			
-			// Add userId to the Shop link
-			document.querySelector('a.nav-link[href="shop.html"]').href = `shop.html?userId=${userId}`;
-			
-			// Add userId to the Profile link
-			document.querySelector('a.nav-link[href="profile.html"]').href = `profile.html?userId=${userId}`;
-			
-			// Add userId to the Cart link
-			document.querySelector('a.nav-link[href="cart.html"]').href = `cart.html?userId=${userId}`;
-		  }
-	  
-		  products.forEach((product) => {
-			const productDiv = document.createElement("div");
-			productDiv.className = "col-12 col-md-4 col-lg-3 mb-5";
-	  
-			productDiv.innerHTML = `
-			  <a class="product-item" href="product_detail.html?id=${product.id}&userId=${userId}">
+      // Function to fetch products from the API
+      document.addEventListener("DOMContentLoaded", async () => {
+        const token = localStorage.getItem("authToken");
+        console.log(token);
+        if (!token) {
+          // Redirect to login if no token is found
+          //alert("You need to log in to access this page.");
+          window.location.href = "login.html";
+          return;
+        }
+
+        try {
+          // Validate the token with the backend
+          const response = await fetch("public/validate_token.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          const data = await response.json();
+          
+
+          if (!data.success) {
+            // If token is invalid, remove it and redirect to login
+            localStorage.removeItem("authToken");
+            //alert("Session expired. Please log in again.");
+            window.location.href = "login.html";
+          }
+        } catch (error) {
+          console.error("Error validating token:", error);
+          localStorage.removeItem("authToken");
+          //alert("An error occurred. Please log in again.");
+          window.location.href = "login.html";
+        }
+      });
+      async function fetchProducts() {
+        try {
+          const response = await fetch("public/products_limit.php"); // Call the API
+          const products = await response.json();
+          displayAllProducts(products); // Call function to display all products
+        } catch (error) {
+          console.error("Failed to fetch product data:", error);
+        }
+      }
+
+      // Function to display all products
+      function displayAllProducts(products) {
+        const container = document.getElementById("productContainer");
+        container.innerHTML = ""; // Clear container
+
+        // Retrieve the user ID from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get("userId");
+
+        if (userId) {
+          // Add userId to the Home link
+          document.querySelector(
+            'a.nav-link[href="index.html"]'
+          ).href = `index.html?userId=${userId}`;
+
+          // Add userId to the Shop link
+          document.querySelector(
+            'a.nav-link[href="shop.html"]'
+          ).href = `shop.html?userId=${userId}`;
+
+          // Add userId to the Profile link
+          document.querySelector(
+            'a.nav-link[href="profile.html"]'
+          ).href = `profile.html?userId=${userId}`;
+
+          // Add userId to the Cart link
+          document.querySelector(
+            'a.nav-link[href="cart.html"]'
+          ).href = `cart.html?userId=${userId}`;
+        }
+
+        products.forEach((product) => {
+          const productDiv = document.createElement("div");
+          productDiv.className = "col-12 col-md-4 col-lg-3 mb-5";
+
+          productDiv.innerHTML = `
+			  <a class="product-item" href="product_detail.html?id=${
+          product.id
+        }&userId=${userId}">
 				<img src="${product.images[1]}" class="img-fluid product-thumbnail" />
 				<h3 class="product-title">${product.name}</h3>
 				<strong class="product-price">${product.price.toLocaleString("en-US", {
-				  style: "currency",
-				  currency: "USD",
-				})}</strong>
+          style: "currency",
+          currency: "USD",
+        })}</strong>
 				<span class="icon-cross">Detail</span>
 			  </a>
 			`;
-	  
-			container.appendChild(productDiv);
-		  });
-		}
-	  
-		// Call fetchProducts when the page loads
-		window.onload = fetchProducts;
-	  </script>
-	  
+
+          container.appendChild(productDiv);
+        });
+      }
+
+      // Call fetchProducts when the page loads
+      window.onload = fetchProducts;
+    </script>
+
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/tiny-slider.js"></script>
     <script src="js/custom.js"></script>

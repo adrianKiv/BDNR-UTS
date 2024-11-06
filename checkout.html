@@ -553,7 +553,8 @@
     <script>
       const urlParams = new URLSearchParams(window.location.search);
       const userId = urlParams.get("userId"); // Get userId if it's available in the URL
-
+      let cek_address = 0;
+      let cek_payment = 0;
       // Function to add userId as a query parameter to each link
       function addUserIdToLinks() {
         if (!userId) return; // Exit if userId is not available
@@ -711,6 +712,7 @@
           !shippingAddress.state ||
           !shippingAddress.postalCode
         ) {
+          cek_address = 1;
           alert("Please fill out all fields in the shipping address.");
           return; // Stop if any shipping address field is empty
         }
@@ -733,6 +735,7 @@
           payment.paymentMethod !== "Bank Transfer" &&
           payment.paymentMethod !== "PayPal"
         ) {
+          cek_payment = 1;
           alert(
             "Please select a valid payment method (Bank Transfer or PayPal)."
           );
@@ -780,7 +783,7 @@
           .then((data) => {
             if (data.success) {
               alert("Order placed successfully!");
-              window.location.href = "thankyou.html"; // Redirect to thank you page
+              window.location.href = "thankyou.html?userId=" + data.userId; 
             } else {
               alert("Failed to place order: " + data.error);
             }
@@ -798,9 +801,11 @@ const thankYouButton = document.querySelector(
   if (thankYouButton && userId) {
 	thankYouButton.onclick = (e) => {
 	  e.preventDefault();
-	  placeOrder();
+	  // placeOrder();
 	  // Navigate to thank you page with userId
-	  window.location.href = `thankyou.html?userId=${userId}`;
+    //if(cek_address && cek_payment){
+      //window.location.href = `thankyou.html?userId=${userId}`;
+    //}
 	};
   }
   
