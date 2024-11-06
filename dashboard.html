@@ -55,16 +55,17 @@
 			<div class="user-info-dropdown">
 				<div class="dropdown">
 					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-						<span class="user-icon">
-							<img src="vendors/images/photo1.jpg" alt="">
-						</span>
-						<span class="user-name">Ross C. Lopez</span>
+					  <span class="user-icon">
+						<img src="vendors/images/photo1.jpg" alt="">
+					  </span>
+					  <span class="user-name" id="userName">Loading...</span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-						<a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-						<a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+					  <a class="dropdown-item" id="profileLink" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
+					  <a class="dropdown-item" id="logoutButton" href="#"><i class="dw dw-logout"></i> Log Out</a>
 					</div>
-				</div>
+				  </div>
+				  
 			</div>
 		</div>
 	</div>
@@ -72,7 +73,7 @@
 
 	<div class="left-side-bar">
 		<div class="brand-logo">
-			<a href="index.html">
+			<a href="">
 				<!-- <img src="vendors/images/deskapp-logo-white.svg" alt="" class="light-logo"> -->
 				<h1 style="color: white;"><span>Dashboard</span></h1>
 				
@@ -86,20 +87,21 @@
 			<div class="sidebar-menu">
 				<ul id="accordion-menu">
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle">
-							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
+						<a href="" class="dropdown-toggle">
+						  <span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
 						</a>
-					</li>
-					<li class="dropdown">
+					  </li>
+					  <li class="dropdown">
 						<a href="dashboardproduct.html" class="dropdown-toggle">
-							<span class="micon dw dw-library"></span><span class="mtext">Product</span>
+						  <span class="micon dw dw-library"></span><span class="mtext">Product</span>
 						</a>
-					</li>
-					<li class="dropdown">
+					  </li>
+					  <li class="dropdown">
 						<a href="dashboardpesanan.html" class="dropdown-toggle">
-							<span class="micon dw dw-edit2"></span><span class="mtext">Pesanan</span>
+						  <span class="micon dw dw-edit2"></span><span class="mtext">Pesanan</span>
 						</a>
-					</li>
+					  </li>
+					  
 				</ul>
 			</div>
 		</div>
@@ -192,7 +194,7 @@
 			</div> -->
 			<div class="card-box mb-30">
 				<h2 class="h4 pd-20">Riwayat Seluruh Pembelian</h2>
-				<table class="data-table table nowrap">
+				<table class="data table nowrap">
 				  <thead>
 					<tr>
 					  <th>User</th>
@@ -210,56 +212,56 @@
 				</table>
 			  </div>
 			  
-			  <!-- Modal untuk menampilkan detail user -->
-			  <div class="modal" id="userModal" tabindex="-1" role="dialog">
-				<div class="modal-dialog" role="document">
-				  <div class="modal-content">
-					<div class="modal-header">
-					  <h5 class="modal-title">User Details</h5>
-					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					  </button>
-					</div>
-					<div class="modal-body" id="user-details">
-					  <!-- Detail user akan diisi di sini -->
-					</div>
-				  </div>
-				</div>
-			  </div>
+			  <!-- Modal for User Details -->
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">User Details</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body" id="user-details">
+		  <!-- User details will be populated here -->
+		</div>
+	  </div>
+	</div>
+  </div>
 			  
-			  <!-- Modal untuk menampilkan detail produk -->
-			  <div class="modal" id="productModal" tabindex="-1" role="dialog">
-				<div class="modal-dialog" role="document">
-				  <div class="modal-content">
-					<div class="modal-header">
-					  <h5 class="modal-title">Product Details</h5>
-					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					  </button>
-					</div>
-					<div class="modal-body" id="product-details">
-					  <!-- Detail produk akan diisi di sini -->
-					</div>
-				  </div>
-				</div>
-			  </div>
+			 <!-- Modal for Product Details -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Product Details</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body" id="product-details">
+		  <!-- Product details will be populated here -->
+		</div>
+	  </div>
+	</div>
+  </div>
 			  
-			  <!-- Modal untuk menampilkan alamat pengiriman -->
-			  <div class="modal" id="shippingModal" tabindex="-1" role="dialog">
-				<div class="modal-dialog" role="document">
-				  <div class="modal-content">
-					<div class="modal-header">
-					  <h5 class="modal-title">Shipping Address</h5>
-					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					  </button>
-					</div>
-					<div class="modal-body" id="shipping-address">
-					  <!-- Alamat pengiriman akan diisi di sini -->
-					</div>
-				  </div>
-				</div>
-			  </div>
+  <div class="modal fade" id="shippingModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Shipping Address</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body" id="shipping-address">
+		  <!-- Shipping details will be populated here -->
+		</div>
+	  </div>
+	</div>
+  </div>
+  
 			<div class="footer-wrap pd-20 mb-20 card-box">
 				DeskApp - Bootstrap 4 Admin Template By <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>
 			</div>
@@ -281,111 +283,234 @@
 </body>
 </html>
 
-<script>
-	// Contoh data riwayat pembelian
-	const purchaseHistory = [
-	  {
-		userId: "1",
-		username: "JohnDoe",
-		transactionId: "1001",
-		products: [
-		  { productId: "p1", name: "Shirt", quantity: 2, price: 100 },
-		],
-		totalAmount: 200,
-		orderStatus: "completed",
-		orderDate: "2023-10-05",
-		shippingAddress: {
-		  street: "123 Main St",
-		  city: "Los Angeles",
-		  state: "CA",
-		  postalCode: "90001"
-		}
+
+  
+  <script src="js/auth.js"></script>
+  <script>
+	document.addEventListener("DOMContentLoaded", async () => {
+	  // Check if the user is authenticated
+	  const token = localStorage.getItem("authToken");
+	
+	  if (!token) {
+		console.log("No token found. Redirecting to login page...");
+		window.location.href = "login.html";
+		return;
 	  }
-	];
 	
-	// Fungsi untuk menampilkan data dalam tabel
-	const tableBody = document.getElementById("purchase-history-body");
+	  try {
+		// Validate the token with the backend
+		const response = await fetch("public/validate_token.php", {
+		  method: "POST",
+		  headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+		  },
+		});
 	
-	purchaseHistory.forEach((purchase, index) => {
-	  const row = document.createElement("tr");
+		const data = await response.json();
 	
-	  // Kolom user
-	  const userCell = document.createElement("td");
-	  userCell.innerHTML = `<a href="#" onclick="showUserDetails(${index})">${purchase.username}</a>`;
-	  row.appendChild(userCell);
+		if (!data.success) {
+		  console.log("Invalid token. Redirecting to login page...");
+		  localStorage.removeItem("authToken"); // Remove invalid token
+		  window.location.href = "login.html";
+		  return;
+		}
 	
-	  // Kolom produk
-	  const productCell = document.createElement("td");
-	  productCell.innerHTML = `<a href="#" onclick="showProductDetails(${index})">${purchase.products[0].name}</a>`;
-	  row.appendChild(productCell);
+		console.log("User is authenticated.");
 	
-	  // Kolom kuantitas produk
-	  const quantityCell = document.createElement("td");
-	  quantityCell.textContent = purchase.products[0].quantity;
-	  row.appendChild(quantityCell);
+		// Extract userId from the response or URL
+		const urlParams = new URLSearchParams(window.location.search);
+		const userId = urlParams.get("userId") || data.user.userId;
 	
-	  // Kolom harga produk
-	  const priceCell = document.createElement("td");
-	  priceCell.textContent = `$${purchase.products[0].price}`;
-	  row.appendChild(priceCell);
+		// Fetch user data and update UI
+		if (userId) {
+		  fetchUserData(userId);
 	
-	  // Kolom status pesanan
-	  const statusCell = document.createElement("td");
-	  statusCell.textContent = purchase.orderStatus;
-	  row.appendChild(statusCell);
+		  // Update links with userId
+		  updateLinksWithUserId(userId);
+		}
+	  } catch (error) {
+		console.error("Error validating token:", error);
+		localStorage.removeItem("authToken");
+		window.location.href = "login.html";
+	  }
 	
-	  // Kolom tanggal pesanan
-	  const dateCell = document.createElement("td");
-	  dateCell.textContent = purchase.orderDate;
-	  row.appendChild(dateCell);
-	
-	  // Kolom alamat pengiriman
-	  const addressCell = document.createElement("td");
-	  addressCell.innerHTML = `<a href="#" onclick="showShippingAddress(${index})">View Address</a>`;
-	  row.appendChild(addressCell);
-	
-	  // Kolom aksi
-	  const actionCell = document.createElement("td");
-	  
-	  row.appendChild(actionCell);
-	
-	  tableBody.appendChild(row);
+	  // Attach logout functionality
+	  const logoutButton = document.getElementById("logoutButton");
+	  if (logoutButton) {
+		logoutButton.addEventListener("click", () => {
+		  localStorage.removeItem("authToken");
+		  console.log("User logged out. Redirecting to login page...");
+		  window.location.href = "login.html";
+		});
+	  }
 	});
 	
-	// Fungsi untuk menampilkan detail user di modal
-	function showUserDetails(index) {
-	  const user = purchaseHistory[index];
-	  const userDetails = document.getElementById("user-details");
-	  userDetails.innerHTML = `
-		<p>Username: ${user.username}</p>
-		<p>User ID: ${user.userId}</p>
-	  `;
-	  $('#userModal').modal('show');
+	function updateLinksWithUserId(userId) {
+	  // Update Product link
+	  const productLink = document.querySelector('a[href="dashboardproduct.html"]');
+	  if (productLink) {
+		productLink.href = `dashboardproduct.html?userId=${userId}`;
+	  }
+	
+	  // Update Pesanan link
+	  const pesananLink = document.querySelector('a[href="dashboardpesanan.html"]');
+	  if (pesananLink) {
+		pesananLink.href = `dashboardpesanan.html?userId=${userId}`;
+	  }
+	
+	  // Add userId to profile link
+	  const profileLink = document.getElementById("profileLink");
+	  if (profileLink) {
+		profileLink.href = `profile.html?userId=${userId}`;
+	  }
 	}
 	
-	// Fungsi untuk menampilkan detail produk di modal
-	function showProductDetails(index) {
-	  const product = purchaseHistory[index].products[0];
-	  const productDetails = document.getElementById("product-details");
-	  productDetails.innerHTML = `
-		<p>Product Name: ${product.name}</p>
-		<p>Quantity: ${product.quantity}</p>
-		<p>Price: $${product.price}</p>
-	  `;
-	  $('#productModal').modal('show');
+	function fetchUserData(userId) {
+	  // Make a GET request to the PHP file
+	  fetch(`public/get_user.php?userId=${userId}`)
+		.then((response) => response.json()) // Parse JSON response
+		.then((data) => {
+		  if (data.error) {
+			console.error(data.error);
+		  } else {
+			// Update user name
+			const userNameElement = document.getElementById("userName");
+			if (userNameElement) {
+			  userNameElement.textContent = data.username || "User";
+			}
+		  }
+		})
+		.catch((error) => {
+		  console.error("An error occurred while fetching user data:", error);
+		});
 	}
+	</script>
 	
-	// Fungsi untuk menampilkan alamat pengiriman di modal
-	function showShippingAddress(index) {
-	  const address = purchaseHistory[index].shippingAddress;
-	  const shippingDetails = document.getElementById("shipping-address");
-	  shippingDetails.innerHTML = `
-		<p>Street: ${address.street}</p>
-		<p>City: ${address.city}</p>
-		<p>State: ${address.state}</p>
-		<p>Postal Code: ${address.postalCode}</p>
-	  `;
-	  $('#shippingModal').modal('show');
-	}
+<script>
+	
+	
+	
+	  
+	
+	let purchaseHistory = []; // Declare globally
+
+
+	async function fetchAllPurchaseHistory() {
+		try {
+		  const response = await fetch("public/get_all_purchase_history.php");
+		  const data = await response.json();
+	  
+		  if (data.error) {
+			console.error("Error fetching purchase history:", data.error);
+			alert(data.error);
+			return;
+		  }
+	  
+		  purchaseHistory = data; // Assign to global variable
+		  populatePurchaseTable(purchaseHistory); // Populate table
+		} catch (error) {
+		  console.error("Error fetching purchase history:", error);
+		  alert("An error occurred while fetching purchase history.");
+		}
+	  }
+	  
+	  
+	  
+	  
+	  async function populatePurchaseTable(purchaseHistory) {
+		const tableBody = document.getElementById("purchase-history-body");
+		tableBody.innerHTML = ""; // Clear existing rows
+	  
+		for (const [index, purchase] of purchaseHistory.entries()) {
+		  const row = document.createElement("tr");
+	  
+		  // User Column
+		  const user = purchase.user;
+		  const userCell = document.createElement("td");
+		  userCell.innerHTML = `<a href="#" onclick="showUserDetails(${index})">${user.username || "Unknown User"}</a>`;
+		  row.appendChild(userCell);
+	  
+		  // Product Column
+		  const firstProduct = purchase.products?.[0] || {}; // Use optional chaining and default to empty object
+		  const productCell = document.createElement("td");
+		  productCell.innerHTML = `<a href="#" onclick="showProductDetails(${index})">${firstProduct.name || "Unknown Product"}</a>`;
+		  row.appendChild(productCell);
+	  
+		  // Quantity Column
+		  const quantityCell = document.createElement("td");
+		  quantityCell.textContent = firstProduct.quantity || "N/A";
+		  row.appendChild(quantityCell);
+	  
+		  // Price Column
+		  const priceCell = document.createElement("td");
+		  priceCell.textContent = `$${firstProduct.price || "0.00"}`;
+		  row.appendChild(priceCell);
+	  
+		  // Order Status Column
+		  const statusCell = document.createElement("td");
+		  statusCell.textContent = purchase.orderStatus || "N/A";
+		  row.appendChild(statusCell);
+	  
+		  // Order Date Column
+		  const dateCell = document.createElement("td");
+		  dateCell.textContent = purchase.orderDate || "N/A";
+		  row.appendChild(dateCell);
+
+		  const addressCell = document.createElement("td");
+			addressCell.innerHTML = `<a href="#" onclick="showShippingAddress(${index})">View Address</a>`;
+			row.appendChild(addressCell);
+	  
+		  tableBody.appendChild(row);
+		}
+	  }
+
+	  document.addEventListener("DOMContentLoaded", fetchAllPurchaseHistory);
+	  
+	  
+	  function showUserDetails(index) {
+		const user = purchaseHistory[index].user;
+		const userDetails = document.getElementById("user-details");
+		if (!user) return;
+		userDetails.innerHTML = `
+		  <p>Username: ${user.username || "N/A"}</p>
+		  <p>Email: ${user.email || "N/A"}</p>
+		  <p>Phone: ${user.phone || "N/A"}</p>
+		  <p>Role: ${user.role || "N/A"}</p>
+		`;
+		$('#userModal').modal('show');
+	  }
+	  
+	  function showProductDetails(index) {
+		const product = purchaseHistory[index]?.products?.[0];
+		if (!product) return;
+		const productDetails = document.getElementById("product-details");
+		productDetails.innerHTML = `
+		  <p>Product Name: ${product.name || "N/A"}</p>
+		  <p>Quantity: ${product.quantity || "N/A"}</p>
+		  <p>Price: $${product.price || "0.00"}</p>
+		`;
+		$('#productModal').modal('show');
+	  }
+
+	  function showShippingAddress(index) {
+		const address = purchaseHistory[index]?.shippingAddress;
+		if (!address) return;
+	  
+		const shippingDetails = document.getElementById("shipping-address");
+		shippingDetails.innerHTML = `
+		  <p>Street: ${address.street || "N/A"}</p>
+		  <p>City: ${address.city || "N/A"}</p>
+		  <p>State: ${address.state || "N/A"}</p>
+		  <p>Postal Code: ${address.postalCode || "N/A"}</p>
+		`;
+		$('#shippingModal').modal('show'); // Trigger modal display
+	  }
+	  
+	  
+
+ 
+
+	  
 	</script>
 	

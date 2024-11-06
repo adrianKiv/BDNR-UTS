@@ -9,11 +9,16 @@ $dataCursor = $db->getData($collectionName);
 $productsData = [];
 foreach ($dataCursor as $document) {
     $productsData[] = [
+        'id' => (string)$document['_id'], // Convert ObjectId to string
         'name' => $document['name'], 
         'images' => $document['images'],
         'price' => $document['price'],
         'category' => $document['category'],
-        'id' => (string)$document['_id'],
+        'description' => $document['description'] ?? 'No description available', // Optional description
+        'stock' => $document['stock'] ?? 0, // Default stock to 0 if not available
+        'createdAt' => isset($document['createdAt']) ? $document['createdAt']->toDateTime()->format('Y-m-d H:i:s') : null,
+        'updatedAt' => isset($document['updatedAt']) ? $document['updatedAt']->toDateTime()->format('Y-m-d H:i:s') : null,
+        'specifications' => $document['specifications'] ?? [], // Ensure specifications are available
     ];
 }
 

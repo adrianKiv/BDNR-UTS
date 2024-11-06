@@ -32,7 +32,7 @@ if ($user) {
             'iss' => 'your-website.com', // Issuer
             'aud' => 'your-website.com', // Audience
             'iat' => time(), // Issued at
-            'exp' => time() + 3600, // Expiry time (1 hour)
+            'exp' => time() + 36000, // Expiry time (1 hour)
             'userId' => (string)$user['_id'], // User ID
             'role' => $user['role'], // Role for authorization
         ];
