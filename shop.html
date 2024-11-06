@@ -260,7 +260,7 @@ async function fetchAndDisplayProducts(category = "all", searchQuery = "") {
   
 		productDiv.innerHTML = `
 		  <a class="product-item" href="product_detail.html?id=${product.id}&userId=${userId}">
-			<img src="${product.images[1]}" class="img-fluid product-thumbnail" />
+			<img src="${product.images[0]}" class="img-fluid product-thumbnail" />
 			<h3 class="product-title">${product.name}</h3>
 			<strong class="product-price">${product.price.toLocaleString("en-US", {
 			  style: "currency",

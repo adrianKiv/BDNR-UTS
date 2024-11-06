@@ -23,7 +23,8 @@ if ($product) {
         'price' => $product['price'],
         'images' => $product['images'], // Assuming 'image' field contains the image URL
         'description' => $product['description'], // Optional, if you want to include a description
-        'category' => $product['category'] 
+        'category' => $product['category'],
+        'specifications' => $product['specifications'], //
     ];
 
     echo json_encode($productData);
