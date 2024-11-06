@@ -10,7 +10,7 @@ async function checkAuthentication() {
   
     try {
       // Validate the token with the backend
-      const response = await fetch("public/validate_token.php", {
+      const response = await fetch("../public/validate_token.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
