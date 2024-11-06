@@ -23,7 +23,6 @@ $ratingsData = $db->getData($collectionName, $filter_rating)->toArray();
 
 if (!empty($productData)) {
     $product = $productData[0];
-    
     $productArray = [
         'productId' => (string)$product['_id'],
         
@@ -31,7 +30,6 @@ if (!empty($productData)) {
         'price' => $product['price'],
         'images' => $product['images'],
         'description' => $product['description'],
-        'specifications' => $product['specifications'],
         'ratings' => []
     ];
 
@@ -40,7 +38,6 @@ if (!empty($productData)) {
         $filter_user = ['_id' => new MongoDB\BSON\ObjectId($rating['userId'])];
         $userData = $db->getData("Users", $filter_user)->toArray();
         $user = $userData[0];
-        
 
         $productArray['ratings'][] = [
             'rating' => $rating['rating'],
