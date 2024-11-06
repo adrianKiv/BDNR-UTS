@@ -27,6 +27,7 @@ try {
 
             return [
                 'productId' => (string)$product['productId'],
+                'name' => $productDetails['name'] ?? 'Unknown',
                 'quantity' => $product['quantity'],
                 'price' => $product['price'],
                 'images' => isset($productDetails['images']) ? $productDetails['images'] : [] // Retrieve images if available

@@ -439,7 +439,7 @@
 				const newStatus = statusOrder[currentIndex + 1];
 		
 				// Update ke API menggunakan _id
-				fetch("path/to/update_order_status_api.php", {
+				fetch("public/update_order_status_admin.php", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -450,24 +450,21 @@
 				.then(response => response.json())
 				.then(data => {
 					if (data.success) {
-						alert(`Order status updated to ${newStatus}`);
+						// alert(`Order status updated to ${newStatus}`);
 						purchaseHistory[index].orderStatus = newStatus;
 		
-						// Sembunyikan tombol jika status delivered
-						if (newStatus === "delivered") {
-							document.getElementById(`statusButton-${index}`).style.display = "none";
-							document.getElementById(`confirmationText-${index}`).style.display = "block"; // Tampilkan teks konfirmasi
-						}
+						
+						location.reload();
 					} else {
-						alert(data.message);
+						//alert(data.message);
 					}
 				})
 				.catch(error => {
 					console.error("Error updating status:", error);
-					alert("Failed to update order status.");
+					//alert("Failed to update order status.");
 				});
 			} else {
-				alert("Order is already delivered.");
+				//alert("Order is already delivered.");
 			}
 		}
 		

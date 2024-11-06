@@ -264,8 +264,7 @@
 			function loadCart() {
 				fetch(`public/get_cart.php?userId=${userId}`)
 					.then(response => response.json())
-					.then(cartData => {  // Changed 'data' to 'cartData' for clarity
-					
+					.then(cartData => {
 						if (cartData.error) {
 							alert(cartData.error);
 							return;
@@ -277,10 +276,22 @@
 			
 						let subtotal = 0;
 			
+						if (products.length === 0) {
+							// If cart is empty, disable or hide the checkout button
+							document.getElementById('checkoutButton').style.display = 'none';
+							cartItemsContainer.innerHTML = `<tr><td colspan="6" class="text-center">Your cart is empty.</td></tr>`;
+							document.querySelector('.subtotal-amount').innerText = `$0.00`;
+							document.querySelector('.total-amount').innerText = `$0.00`;
+							return;
+						}
+			
+						// If cart has items, show the checkout button
+						document.getElementById('checkoutButton').style.display = 'block';
+			
 						products.forEach(product => {
 							fetch(`public/get_product.php?productId=${product.productId}`)
 								.then(response => response.json())
-								.then(productData => {  // Changed 'data' to 'productData' for clarity
+								.then(productData => {
 									const price = productData.price;
 									const total = price * product.quantity;
 									subtotal += total;
@@ -317,6 +328,7 @@
 					})
 					.catch(error => console.error('Error loading cart:', error));
 			}
+			
 			
 		
 			// Call loadCart() on page load

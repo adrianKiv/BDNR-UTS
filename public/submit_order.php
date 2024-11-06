@@ -26,7 +26,7 @@ $payment = [
     'amount' => $data['payment']['amount'],
     'paymentMethod' => $data['payment']['paymentMethod'],
     'paymentDate' => new MongoDB\BSON\UTCDateTime(new DateTime($data['payment']['paymentDate'])),
-    'paymentStatus' => $data['payment']['paymentStatus'],
+    'paymentStatus' => "success",
     'historyDate' => $data['payment']['historyDate']
 ];
 
@@ -53,8 +53,8 @@ $order = [
             'price' => (float)$product['price']
         ];
     }, $products),
-    'totalAmount' => (float)$totalAmount,
-    'orderStatus' => "delivered",
+    'totalAmount' => (float)$data['payment']['amount'],
+    'orderStatus' => "Pending",
     'orderDate' => $orderDate,
     'deliveryDate' => $deliveryDate,
     'shippingAddress' => $shippingAddress,

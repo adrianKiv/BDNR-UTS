@@ -577,7 +577,7 @@
 		
 										<!-- Detail Produk -->
 										<div class="col-md-10">
-											<h6>Product ID: ${product.productId}</h6>
+											<h6>Nama Product: ${product.name}</h6>
 											<div class="row">
 												<div class="col-md-4">
 													<p><strong>Qty:</strong> ${product.quantity}</p>
@@ -636,7 +636,7 @@
             console.error("Error fetching transaction data:", error)
           );
       }
-
+      let jumlai_item = 0;
       // Display transaction details in HTML
       function displayOrderDetails(order) {
         // Display products in order
@@ -660,12 +660,13 @@
 						</div>
 					</div>
 				`;
+        jumlai_item += product.quantity;
         });
 
         // Display other order details
         document.getElementById(
           "total-amount"
-        ).textContent = `${order.totalAmount}`;
+        ).textContent = `${jumlai_item}`;
         document.getElementById("order-status").textContent = formatOrderStatus(
           order.orderStatus
         );
@@ -733,6 +734,7 @@
               document.getElementById("order-status").textContent = "completed";
               document.getElementById("complete-order-button").style.display =
                 "none"; // Hide the button
+                location.reload();
             } else {
               //alert("Failed to complete order: " + (data.error || "Unknown error"));
             }

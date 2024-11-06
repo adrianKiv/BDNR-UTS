@@ -4,7 +4,7 @@ require_once __DIR__ . '/../config/database.php';
 
 // Inisialisasi koneksi database
 $db = new Database();
-$collectionName = "PurchaseHistory";
+$collectionName = "Transactions";
 
 // Mendapatkan data dari request
 $input = json_decode(file_get_contents("php://input"), true);
@@ -25,7 +25,7 @@ try {
     // Update status di database
     $result = $db->getCollection($collectionName)->updateOne(
         ['_id' => $objectId], // Filter berdasarkan _id
-        ['$set' => ['payment.paymentStatus' => $newStatus]] // Update hanya payment.paymentStatus
+        ['$set' => ['orderStatus' => $newStatus]] // Update hanya payment.paymentStatus
     );
 
     if ($result->getMatchedCount() === 0) {

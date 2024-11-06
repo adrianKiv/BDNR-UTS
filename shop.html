@@ -212,6 +212,48 @@
       </div>
     </footer>
     <!-- End Footer Section -->
+
+    <script src="js/auth.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        // Check if the user is authenticated
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+          console.log("No token found. Redirecting to login page...");
+          window.location.href = "login.html";
+          return;
+        }
+
+        try {
+          // Validate the token with the backend
+          const response = await fetch("public/validate_token.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          const data = await response.json();
+		  
+          if (!data.success) {
+            console.log("Invalid token. Redirecting to login page...");
+            localStorage.removeItem("authToken"); // Remove invalid token
+            window.location.href = "login.html";
+            return;
+          }
+          
+          console.log("User is authenticated.");
+        } catch (error) {
+          console.error("Error validating token:", error);
+          localStorage.removeItem("authToken");
+          window.location.href = "login.html";
+        }
+
+        
+      });
+    </script>
     <script>
 		// Retrieve the userId from the current page's URL
 		const urlParams = new URLSearchParams(window.location.search);
