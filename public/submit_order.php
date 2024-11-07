@@ -27,7 +27,7 @@ $payment = [
     'paymentMethod' => $data['payment']['paymentMethod'],
     'paymentDate' => new MongoDB\BSON\UTCDateTime(new DateTime($data['payment']['paymentDate'])),
     'paymentStatus' => "success",
-    'historyDate' => $data['payment']['historyDate']
+    // 'historyDate' => $data['payment']['historyDate']
 ];
 
 // Define collections
