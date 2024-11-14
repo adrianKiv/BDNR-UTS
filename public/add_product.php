@@ -2,17 +2,20 @@
 require_once __DIR__ . '/../config/database.php';
 $db = new Database();
 
-// Tentukan direktori tempat menyimpan gambar
-$imageDirectory = 'images/';  // Path relatif, tidak perlu path lengkap karena akan disimpan relatif
+// Direktori penyimpanan gambar
+$imageDirectory = 'images/'; 
 
-// Mendapatkan waktu saat ini (timestamp)
-$currentTimestamp = new MongoDB\BSON\UTCDateTime(); // Menggunakan MongoDB UTCDateTime untuk waktu yang tepat
+// Mendapatkan waktu saat ini
+$currentTimestamp = new MongoDB\BSON\UTCDateTime();
 
 // Validasi data form
-if (isset($_POST['name'], $_POST['price'], $_POST['description'], $_POST['category'], $_POST['specifications'], $_POST['stock']) && !empty($_FILES['images'])) {
+if (
+    isset($_POST['name'], $_POST['price'], $_POST['description'], $_POST['category'], $_POST['specifications'], $_POST['stock']) &&
+    isset($_FILES['images']) && count($_FILES['images']['tmp_name']) === 2  // Memastikan dua gambar diunggah
+) {
     $imagePaths = [];
-    
-    // Proses setiap gambar yang diunggah
+
+    // Proses setiap gambar
     foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
         // Validasi upload gambar
         if ($_FILES['images']['error'][$index] != UPLOAD_ERR_OK) {
@@ -20,7 +23,7 @@ if (isset($_POST['name'], $_POST['price'], $_POST['description'], $_POST['catego
             exit;
         }
 
-        // Periksa ukuran file dan tipe file
+        // Periksa ukuran file (maks 5MB) dan tipe file yang diizinkan
         if ($_FILES['images']['size'][$index] > 5 * 1024 * 1024) {
             echo json_encode(['success' => false, 'error' => 'Ukuran file terlalu besar.']);
             exit;
@@ -32,18 +35,16 @@ if (isset($_POST['name'], $_POST['price'], $_POST['description'], $_POST['catego
             exit;
         }
 
-        // Nama asli file gambar
+        // Nama file yang unik
         $originalName = $_FILES['images']['name'][$index];
-
-        // Membuat nama file yang unik
         $uniqueName = uniqid() . '-' . basename($originalName);
         
-        // Tentukan path file yang akan disimpan
-        $destination = __DIR__ . '/../images/' . $uniqueName; // Penyimpanan gambar di server
+        // Path penyimpanan file
+        $destination = __DIR__ . '/../images/' . $uniqueName;
         
         // Pindahkan file ke folder /images
         if (move_uploaded_file($tmpName, $destination)) {
-            // Simpan path relatif gambar (misalnya /images/nama_gambar.jpg)
+            // Simpan path relatif gambar
             $imagePaths[] = $imageDirectory . $uniqueName;
         } else {
             echo json_encode(['success' => false, 'error' => 'Gagal mengunggah gambar.']);
@@ -51,7 +52,7 @@ if (isset($_POST['name'], $_POST['price'], $_POST['description'], $_POST['catego
         }
     }
 
-    // Pisahkan specifications dari input menjadi array
+    // Konversi specifications menjadi array
     $specifications = $_POST['specifications'];
 
     // Siapkan data produk untuk disimpan di database
@@ -60,11 +61,11 @@ if (isset($_POST['name'], $_POST['price'], $_POST['description'], $_POST['catego
         'description' => $_POST['description'],
         'price' => (float)$_POST['price'],
         'category' => $_POST['category'],
-        'stock' => $_POST['stock'],
-        'images' => $imagePaths, // Menyimpan path relatif gambar di array
-        'specifications' => $specifications, // Simpan sebagai array
-        'createdAt' => $currentTimestamp, // Menambahkan waktu saat produk dibuat
-        'updatedAt' => $currentTimestamp  // Menambahkan waktu saat produk dibuat (untuk pembaruan pertama)
+        'stock' => (int)$_POST['stock'],
+        'images' => $imagePaths,  // Menyimpan path relatif gambar dalam array
+        'specifications' => $specifications,
+        'createdAt' => $currentTimestamp,
+        'updatedAt' => $currentTimestamp
     ];
 
     // Masukkan data ke koleksi "Products"
@@ -77,6 +78,6 @@ if (isset($_POST['name'], $_POST['price'], $_POST['description'], $_POST['catego
         echo json_encode(['success' => false, 'error' => 'Gagal menambahkan produk ke database.']);
     }
 } else {
-    echo json_encode(['success' => false, 'error' => 'Data produk tidak lengkap.']);
+    echo json_encode(['success' => false, 'error' => 'Data produk tidak lengkap atau jumlah gambar tidak sesuai.']);
 }
 ?>
