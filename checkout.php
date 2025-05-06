@@ -1,80 +1,6 @@
-<!-- /*
-* Bootstrap 5
-* Template Name: Furni
-* Template Author: Untree.co
-* Template URI: https://untree.co/
-* License: https://creativecommons.org/licenses/by/3.0/
-*/ -->
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="author" content="Untree.co" />
-    <link rel="shortcut icon" href="favicon.png" />
-
-    <meta name="description" content="" />
-    <meta name="keywords" content="bootstrap, bootstrap4" />
-
-    <!-- Bootstrap CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      rel="stylesheet" />
-    <link href="css/tiny-slider.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
-    <title>
-      Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites
-      by Untree.co
-    </title>
-  </head>
-
-  <body>
-    <!-- Start Header/Navigation -->
-    <nav
-    class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark"
-    arial-label="Furni navigation bar">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">KivRyelle<span>.</span></a>
-
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarsFurni"
-        aria-controls="navbarsFurni"
-        aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarsFurni">
-        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-          <li class="nav-item active">
-            <a class="nav-link" href="index.html">Home</a>
-          </li>
-          <li><a class="nav-link" href="shop.html">Shop</a></li>
-        </ul>
-
-        <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-          <li>
-            <a class="nav-link" href="profile.html"
-              ><img src="images/user.svg"
-            /></a>
-          </li>
-          <li>
-            <a class="nav-link" href="cart.html"
-              ><img src="images/cart.svg"
-            /></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-    </nav>
-    <!-- End Header/Navigation -->
+<?php
+include 'partial/navbar.php';
+?>
 
     <!-- Start Hero Section -->
     <div class="hero">
@@ -412,133 +338,7 @@
         <!-- </form> -->
       </div>
     </div>
-
-    <!-- Start Footer Section -->
-    <footer class="footer-section">
-      <div class="container relative">
-        <div class="sofa-img">
-          <img src="images/setpc.png" alt="Image" class="img-fluid" />
-        </div>
-
-        <div class="row">
-          <div class="col-lg-8">
-            <div class="subscription-form">
-              <h3 class="d-flex align-items-center">
-                <span class="me-1"
-                  ><img
-                    src="images/envelope-outline.svg"
-                    alt="Image"
-                    class="img-fluid" /></span
-                ><span>Subscribe to Danpis</span>
-              </h3>
-
-              <form action="#" class="row g-3">
-                <div class="col-auto">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter your name" />
-                </div>
-                <div class="col-auto">
-                  <input
-                    type="email"
-                    class="form-control"
-                    placeholder="Enter your email" />
-                </div>
-                <div class="col-auto">
-                  <button class="btn btn-primary">
-                    <span class="fa fa-paper-plane"></span>
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <div class="row g-5 mb-5">
-          <div class="col-lg-4">
-            <div class="mb-4 footer-logo-wrap">
-              <a href="#" class="footer-logo">Keep Real<span>.</span></a>
-            </div>
-            <p class="mb-4">
-              Us on Media Social :
-            </p>
-
-            <ul class="list-unstyled custom-social">
-              <li>
-                <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
-              </li>
-              <li>
-                <a href="#"><span class="fa fa-brands fa-twitter"></span></a>
-              </li>
-              <li>
-                <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
-              </li>
-              <li>
-                <a href="#"><span class="fa fa-brands fa-linkedin"></span></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="border-top copyright">
-          <div class="row pt-4">
-            <div class="col-lg-6">
-              <p class="mb-2 text-center text-lg-start">
-                Copyright &copy;
-                <script>
-                  document.write(new Date().getFullYear());
-                </script>
-                . All Rights Reserved. &mdash; Designed with Expert by kelompok 12
-                <!-- License information: https://untree.co/license/ -->
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- End Footer Section -->
-    <script src="js/auth.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", async () => {
-        // Check if the user is authenticated
-        const token = localStorage.getItem("authToken");
-
-        if (!token) {
-          console.log("No token found. Redirecting to login page...");
-          window.location.href = "login.html";
-          return;
-        }
-
-        try {
-          // Validate the token with the backend
-          const response = await fetch("public/validate_token.php", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          const data = await response.json();
-		  
-          if (!data.success) {
-            console.log("Invalid token. Redirecting to login page...");
-            localStorage.removeItem("authToken"); // Remove invalid token
-            window.location.href = "login.html";
-            return;
-          }
-          
-          console.log("User is authenticated.");
-        } catch (error) {
-          console.error("Error validating token:", error);
-          localStorage.removeItem("authToken");
-          window.location.href = "login.html";
-        }
-
-        
-      });
-    </script>
+    </body>
     <script>
       const urlParams = new URLSearchParams(window.location.search);
       const userId = urlParams.get("userId"); // Get userId if it's available in the URL
@@ -550,17 +350,17 @@
 
         // List of links to update
         const linksToUpdate = [
-          { selector: 'a.nav-link[href="index.html"]', href: "index.html" },
-          { selector: 'a.nav-link[href="shop.html"]', href: "shop.html" },
-          { selector: 'a.nav-link[href="about.html"]', href: "about.html" },
+          { selector: 'a.nav-link[href="index.php"]', href: "index.php" },
+          { selector: 'a.nav-link[href="shop.php"]', href: "shop.php" },
+          { selector: 'a.nav-link[href="about.php"]', href: "about.php" },
           {
-            selector: 'a.nav-link[href="services.html"]',
-            href: "services.html",
+            selector: 'a.nav-link[href="services.php"]',
+            href: "services.php",
           },
-          { selector: 'a.nav-link[href="blog.html"]', href: "blog.html" },
-          { selector: 'a.nav-link[href="contact.html"]', href: "contact.html" },
-          { selector: 'a.nav-link[href="profile.html"]', href: "profile.html" },
-          { selector: 'a.nav-link[href="cart.html"]', href: "cart.html" },
+          { selector: 'a.nav-link[href="blog.php"]', href: "blog.php" },
+          { selector: 'a.nav-link[href="contact.php"]', href: "contact.php" },
+          { selector: 'a.nav-link[href="profile.php"]', href: "profile.php" },
+          { selector: 'a.nav-link[href="cart.php"]', href: "cart.php" },
         ];
 
         // Loop through each link and add userId as a query parameter
@@ -772,7 +572,7 @@
           .then((data) => {
             if (data.success) {
               alert("Order placed successfully!");
-              window.location.href = "thankyou.html?userId=" + data.userId; 
+              window.location.href = "thankyou.php?userId=" + data.userId; 
             } else {
               alert("Failed to place order: " + data.error);
             }
@@ -790,107 +590,12 @@ const thankYouButton = document.querySelector(
   if (thankYouButton && userId) {
 	thankYouButton.onclick = (e) => {
 	  e.preventDefault();
-	  // placeOrder();
-	  // Navigate to thank you page with userId
-    //if(cek_address && cek_payment){
-      //window.location.href = `thankyou.html?userId=${userId}`;
-    //}
 	};
   }
   
     </script>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/custom.js"></script>
-  </body>
+  <?php
+include 'partial/footer.php';
+?>
 </html>
-
-<!-- <script>
-  const products = [
-    {
-      productId: "1",
-      name: "Top Up T-Shirt",
-      description: "A stylish T-shirt with a cool design.",
-      price: 250.0,
-      quantity: 1,
-      category: "Clothing",
-      images: "images/bowl-2.png",
-    },
-    {
-      productId: "2",
-      name: "Polo Shirt",
-      description: "Classic polo shirt with a modern fit.",
-      price: 100.0,
-      quantity: 1,
-      category: "Clothing",
-      images: "images/bowl-3.png",
-    },
-  ];
-  // Fungsi untuk memformat angka sebagai mata uang
-  function formatCurrency(value) {
-    return "$" + value.toFixed(2);
-  }
-
-  // Menghitung subtotal
-  let cartSubtotal = 0;
-
-  // Mendapatkan elemen tbody
-  const tbody = document.getElementById("product-table-body");
-
-  // Menambahkan produk ke dalam tabel
-  products.forEach((product) => {
-    const row = document.createElement("tr");
-
-    // Kolom gambar produk
-    const imageCell = document.createElement("td");
-    const img = document.createElement("img");
-    img.src = product.images;
-    img.alt = product.name;
-    img.style.width = "50px"; // Sesuaikan ukuran gambar
-    imageCell.appendChild(img);
-    row.appendChild(imageCell);
-
-    // Kolom nama produk
-    const nameCell = document.createElement("td");
-    nameCell.textContent = product.name;
-    row.appendChild(nameCell);
-
-    // Kolom deskripsi produk
-    const descriptionCell = document.createElement("td");
-    descriptionCell.textContent = product.description;
-    row.appendChild(descriptionCell);
-
-    // Kolom kategori produk
-    const categoryCell = document.createElement("td");
-    categoryCell.textContent = product.category;
-    row.appendChild(categoryCell);
-
-    // Kolom kuantitas produk
-    const quantityCell = document.createElement("td");
-    quantityCell.textContent = product.quantity;
-    row.appendChild(quantityCell);
-
-    // Kolom harga produk
-    const priceCell = document.createElement("td");
-    priceCell.textContent = formatCurrency(product.price);
-    row.appendChild(priceCell);
-
-    // Kolom total harga untuk produk tersebut
-    const totalPrice = product.price * product.quantity;
-    const totalCell = document.createElement("td");
-    totalCell.textContent = formatCurrency(totalPrice);
-    row.appendChild(totalCell);
-
-    tbody.appendChild(row);
-
-    // Menambahkan harga produk ini ke subtotal
-    cartSubtotal += totalPrice;
-  });
-
-  // Mengisi subtotal dan total
-  document.getElementById("cart-subtotal").textContent =
-    formatCurrency(cartSubtotal);
-  document.getElementById("order-total").textContent =
-    formatCurrency(cartSubtotal);
-</script> -->
