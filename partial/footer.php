@@ -98,6 +98,7 @@
       // Update link navigasi lainnya
       const navLinks = [
         ['a.nav-link[href="index.php"]', `index.php?userId=${encodedId}`],
+        ['a.navbar-brand[href="index.php"]', `index.php?userId=${encodedId}`],
         ['a.nav-link[href="shop.php"]', `shop.php?userId=${encodedId}`],
         ['a.nav-link[href="profile.php"]', `profile.php?userId=${encodedId}`],
         ['a.nav-link[href="cart.php"]', `cart.php?userId=${encodedId}`],
