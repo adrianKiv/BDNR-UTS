@@ -99,22 +99,6 @@ include 'partial/navbar.php';
 	const productId = urlParams.get('id');
 	const userId = urlParams.get('userId'); // Assuming userId is passed as a parameter
 
-	// If userId exists, append it to the relevant links
-	if (userId) {
-		// Update the Home link
-		document.querySelector('a.nav-link[href="index.php"]').href = `index.php?userId=${userId}`;
-
-		// Update the Shop link
-		document.querySelector('a.nav-link[href="shop.php"]').href = `shop.php?userId=${userId}`;
-
-		// Update the Profile link
-		document.querySelector('a.nav-link[href="profile.php"]').href = `profile.php?userId=${userId}`;
-
-		// Update the Cart link
-		document.querySelector('a.nav-link[href="cart.php"]').href = `cart.php?userId=${userId}`;
-	}
-
-
 	// AJAX request to fetch product details and ratings
 	fetch(`public/get_product_detail.php?id=${productId}`)
 		.then(response => response.json())

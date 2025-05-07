@@ -15,7 +15,7 @@ include 'partial/navbar.php';
             kemudahan, kecanggihan, dan gaya dalam satu genggaman.
           </p>
           <p>
-            <a href="#product-section" class="btn btn-secondary me-2">Shop Now</a><a href="shop.html" class="btn btn-white-outline">Explore</a>
+            <a href="#product-section" class="btn btn-secondary me-2">Shop Now</a><a href="shop.php" class="btn btn-white-outline">Explore</a>
           </p>
         </div>
       </div>
@@ -39,7 +39,7 @@ include 'partial/navbar.php';
         <p class="mb-4">
           KivRyelle menyediakan berbagai gadget terkini yang pastinya terpercaya dan terjamin kualitasnya.
         </p>
-        <p><a href="shop.html" class="btn">Explore</a></p>
+        <p><a href="shop.php" class="btn">Explore</a></p>
       </div>
       <!-- End Column 1 -->
 
@@ -166,7 +166,7 @@ include 'partial/navbar.php';
           <li>Kenyamanan dan Kemudahan di Setiap Langkah</li>
           <li>Gadget sebagai Ekspresi Diri</li>
         </ul>
-        <p><a href="shop.html" class="btn">Explore</a></p>
+        <p><a href="shop.php" class="btn">Explore</a></p>
       </div>
     </div>
   </div>
@@ -175,72 +175,55 @@ include 'partial/navbar.php';
 </body>
 
 <script>
+
+  // Fungsi untuk mengambil dan menampilkan produk
   async function fetchProducts() {
     try {
-      const response = await fetch("public/products_limit.php"); // Call the API
+      const response = await fetch("public/products_limit.php");
       const products = await response.json();
-      displayAllProducts(products); // Call function to display all products
+      displayAllProducts(products);
     } catch (error) {
       console.error("Failed to fetch product data:", error);
     }
   }
 
-  // Function to display all products
+  // Fungsi untuk menampilkan semua produk ke dalam container
   function displayAllProducts(products) {
     const container = document.getElementById("productContainer");
-    container.innerHTML = ""; // Clear container
+    if (!container) return;
 
-    // Retrieve the user ID from the URL
+    container.innerHTML = ""; // Bersihkan isi sebelumnya
+
+    // Ambil userId dari URL
     const urlParams = new URLSearchParams(window.location.search);
-    const userId = urlParams.get("userId");
-
-    if (userId) {
-      // Add userId to the Home link
-      document.querySelector(
-        'a.nav-link[href="index.php"]'
-      ).href = `index.php?userId=${userId}`;
-
-      // Add userId to the Shop link
-      document.querySelector(
-        'a.nav-link[href="shop.php"]'
-      ).href = `shop.php?userId=${userId}`;
-
-      // Add userId to the Profile link
-      document.querySelector(
-        'a.nav-link[href="profile.php"]'
-      ).href = `profile.php?userId=${userId}`;
-
-      // Add userId to the Cart link
-      document.querySelector(
-        'a.nav-link[href="cart.php"]'
-      ).href = `cart.php?userId=${userId}`;
-    }
+    const userId = urlParams.get("userId") || "";
 
     products.forEach((product) => {
       const productDiv = document.createElement("div");
       productDiv.className = "col-12 col-md-4 col-lg-3 mb-5";
 
       productDiv.innerHTML = `
-			  <a class="product-item" href="product_detail.php?id=${
-          product.id
-        }&userId=${userId}">
-				<img src="${product.images[0]}" class="img-fluid product-thumbnail" />
-				<h3 class="product-title">${product.name}</h3>
-				<strong class="product-price">${product.price.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        })}</strong>
-				<span class="icon-cross">Detail</span>
-			  </a>
-			`;
+        <a class="product-item" href="product_detail.php?id=${product.id}&userId=${userId}">
+          <img src="${product.images[0]}" class="img-fluid product-thumbnail" />
+          <h3 class="product-title">${product.name}</h3>
+          <strong class="product-price">${Number(product.price).toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          })}</strong>
+          <span class="icon-cross">Detail</span>
+        </a>
+      `;
 
       container.appendChild(productDiv);
     });
   }
 
-  // Call fetchProducts when the page loads
-  window.onload = fetchProducts;
+  // Jalankan setelah DOM siap
+  document.addEventListener("DOMContentLoaded", () => {
+    fetchProducts();
+  });
 </script>
+
 
 
 

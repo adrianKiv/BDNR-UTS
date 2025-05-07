@@ -81,6 +81,38 @@
     </div>
 </footer>
 <!-- End Footer Section -->
+<script>
+    // Fungsi untuk menambahkan userId ke semua link yang diperlukan
+  function updateUserIdInLinks() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get("userId");
+
+    if (userId) {
+      const encodedId = encodeURIComponent(userId);
+
+      // Update semua tombol "Explore" yang menuju ke shop.php
+      document.querySelectorAll('a.btn[href="shop.php"]').forEach((el) => {
+        el.href = `shop.php?userId=${encodedId}`;
+      });
+
+      // Update link navigasi lainnya
+      const navLinks = [
+        ['a.nav-link[href="index.php"]', `index.php?userId=${encodedId}`],
+        ['a.nav-link[href="shop.php"]', `shop.php?userId=${encodedId}`],
+        ['a.nav-link[href="profile.php"]', `profile.php?userId=${encodedId}`],
+        ['a.nav-link[href="cart.php"]', `cart.php?userId=${encodedId}`],
+      ];
+
+      navLinks.forEach(([selector, newHref]) => {
+        const link = document.querySelector(selector);
+        if (link) link.href = newHref;
+      });
+    }
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+    updateUserIdInLinks();
+  });
+</script>
 <script src="js/auth.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", async () => {

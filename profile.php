@@ -335,32 +335,41 @@ include 'partial/navbar.php';
     });
   </script>
   <script>
+    // Fungsi untuk menambahkan userId ke semua link yang diperlukan
+  function updateUserIdInLinks() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get("userId");
+
+    if (userId) {
+      const encodedId = encodeURIComponent(userId);
+
+      // Update semua tombol "Explore" yang menuju ke shop.php
+      document.querySelectorAll('a.btn[href="shop.php"]').forEach((el) => {
+        el.href = `shop.php?userId=${encodedId}`;
+      });
+
+      // Update link navigasi lainnya
+      const navLinks = [
+        ['a.nav-link[href="index.php"]', `index.php?userId=${encodedId}`],
+        ['a.nav-link[href="shop.php"]', `shop.php?userId=${encodedId}`],
+        ['a.nav-link[href="profile.php"]', `profile.php?userId=${encodedId}`],
+        ['a.nav-link[href="cart.php"]', `cart.php?userId=${encodedId}`],
+      ];
+
+      navLinks.forEach(([selector, newHref]) => {
+        const link = document.querySelector(selector);
+        if (link) link.href = newHref;
+      });
+    }
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+    updateUserIdInLinks();
+  });
+</script>
+  <script>
     // Retrieve the userId from the current page's URL
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get("userId"); // Assuming userId is passed as a parameter
-
-    // If userId exists, append it to the relevant links
-    if (userId) {
-      // Update the Home link
-      document.querySelector(
-        'a.nav-link[href="index.php"]'
-      ).href = `index.php?userId=${userId}`;
-
-      // Update the Shop link
-      document.querySelector(
-        'a.nav-link[href="shop.php"]'
-      ).href = `shop.php?userId=${userId}`;
-
-      // Update the Profile link
-      document.querySelector(
-        'a.nav-link[href="profile.php"]'
-      ).href = `profile.php?userId=${userId}`;
-
-      // Update the Cart link
-      document.querySelector(
-        'a.nav-link[href="cart.php"]'
-      ).href = `cart.php?userId=${userId}`;
-    }
     // Function to fetch user data based on userId
     function fetchUserData(userId) {
       // Make a GET request to the PHP file
@@ -380,7 +389,7 @@ include 'partial/navbar.php';
               const dashboardButton = document.getElementById("dashboardButton");
               if (dashboardButton) {
                 dashboardButton.style.display = "inline-block";
-                dashboardButton.href = `dashboard.html?userId=${userId}`;
+                dashboardButton.href = `dashboard.php?userId=${userId}`;
               }
             } else {
               console.log("User is not an admin. Hiding dashboard button.");

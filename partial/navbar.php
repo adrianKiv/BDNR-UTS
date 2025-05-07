@@ -58,8 +58,8 @@
 				</ul>
 
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-					<li><a class="nav-link" href="profile.php"><img src="images/user.svg"></a></li>
 					<li><a class="nav-link" href="cart.php"><img src="images/cart.svg"></a></li>
+					<li><a class="nav-link" href="profile.php"><img src="images/user.svg"></a></li>
 				</ul>
 			</div>
 		</div>
